@@ -40,6 +40,7 @@ public class OtusHomeWork3 {
                     wrongCount++;
             }
             System.out.println("Результат: правильно " + correctCount + ", неправильно " + wrongCount);
+            continue;
         }
     }
 }
