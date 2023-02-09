@@ -23,24 +23,28 @@ public class OtusHomeWork3 {
                 System.out.println(Arrays.toString(answerOptions[i]));
                 break;
             }
-            System.out.println("Твой ответ: ");
+            System.out.println("Введите ответ цифрой от 1 до 5: ");
+
+            boolean check = true;// переключатель, который нужен что бы выходить из и переходить к след вопросу
+
             Scanner scanner = new Scanner(System.in);
-            if (scanner.hasNextInt()) {
-                int str = scanner.nextInt();
-                if (str == correctAnswers[i]) {
-                    correctCount++;
-                } else
-                    wrongCount++;
-            } else {
-                System.out.println("Формат ответа не коректный, введи ответ заново: ");
-                int str = scanner.nextInt();
-                if (str == correctAnswers[i]) {
-                    correctCount++;
-                } else
-                    wrongCount++;
+            while (check) {
+                if (scanner.hasNextInt()) {
+                    int str = scanner.nextInt();
+                    if (str == correctAnswers[i]) {
+                        correctCount++;
+                        check = false;
+                    } else {
+                        wrongCount++;
+                        check = false;
+                    }
+                } else {
+                    System.out.println("Формат ответа некорректный, введи ответ заново цифрой от 1 до 5: ");
+                    scanner.nextLine();
+                }
             }
             System.out.println("Результат: правильно " + correctCount + ", неправильно " + wrongCount);
-            continue;
         }
     }
 }
+
