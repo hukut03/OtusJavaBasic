@@ -16,25 +16,24 @@ public class OtusHomeWork4 {
         Answer answer = new Answer(answerOptions);
 
         q1.setQuestion(questions);
-        var questions1 = q1.questions;
 
-        for (int i = 0; i < questions1.length; i++) {
-            q1.printQuestion();
-            answer.printAnswers();
-//            System.out.println(Arrays.toString(answer.getAnswerByI(i)));
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println(q1.getQuestionByI(i));
+            System.out.println(Arrays.deepToString(answer.getAnswerByI(i)));
+
+
             System.out.println("Введите ответ цифрой от 1 до 5: ");
             boolean check = true;
             Scanner scanner = new Scanner(System.in);
             while (check) {
                 if (scanner.hasNextInt()) {
                     int str = scanner.nextInt();
-                    if (str == q1.getCorrectCount()) {
-                        q1.getCorrectCount();
-                        check = false;
+                    if (str == i) {
+                        q1.setCorrectCount(q1.getCorrectCount() + 1);
                     } else {
-                        q1.getWrongCount();
-                        check = false;
+                        q1.setWrongCount(q1.getWrongCount() + 1);
                     }
+                    check = false;
                 } else {
                     System.out.println("Формат ответа некорректный, введи ответ заново цифрой от 1 до 5: ");
                     scanner.nextLine();
@@ -44,105 +43,62 @@ public class OtusHomeWork4 {
         }
 
     }
+}
 
-    /**/
-
-
-    private static class Answer {
-        public Answer(String[][] answers) {
-            this.answers = answers;
-        }
-
-        private String[][] answers;
-
-        private void setAnswer(String[][] answers) {
-            this.answers = answers;
-        }
-
-        private String[][] getAnswers() {
-            return answers;
-        }
-
-        private String[] getAnswerByI(int i) {
-            return answers[i];
-        }
-
-        private void printAnswers() {
-            for (int i = 0; i < answers.length; i++) {
-                System.out.println(Arrays.toString(answers[i]));
-
-            }
-        }
-
+class Answer {
+    public Answer(String[][] answers) {
+        this.answers = answers;
     }
 
-    private static class Question {
-        public int getCorrectCount() {
-            return correctCount;
-        }
+    private final String[][] answers;
 
-        private int correctCount;
-
-        public int getWrongCount() {
-            return wrongCount;
-        }
-
-        private int wrongCount;
-
-        public Question(String[] questions) {
-            this.questions = questions;
-        }
-
-        private String[] questions;
-
-        private void setQuestion(String[] questions) {
-            this.questions = questions;
-        }
-
-        private String[] getQuestion() {
-            return questions;
-        }
-
-        private String getQuestionByI(int i) {
-            return questions[i];
-        }
-
-        private void printQuestion() {
-            for (int i = 0; i < questions.length; i++) {
-                System.out.println(questions[i]);
-
-            }
-        }
-
+    public String[] getAnswerByI(int i) {
+        return answers[i];
     }
-
-    private class PossibleAnswers {
-
-        private String[][] answerOptions = {
-                {"!!! 1 answer!!!", "2 answer", "3 answer", "4 answer", "5 answer"},
-                {"1 answer", "!!! 2 answer!!!", "3 answer"},
-                {"1 answer", "2 answer", "!!! 3 answer!!!", "4 answer", "5 answer"}
-        };
-    }
-
-//    boolean check = true;// переключатель, который нужен что бы выходить из и переходить к след вопросу
-//    int[] correctAnswers = {1, 2, 3, 4, 5};
-//            Scanner scanner = new Scanner(System.in);
-//            while (check) {
-//                if (scanner.hasNextInt()) {
-//                    int str = scanner.nextInt();
-//                    if (str == correctAnswers[i]) {
-//                        correctCount++;
-//                        check = false;
-//                    } else {
-//                        wrongCount++;
-//                        check = false;
-//                    }
-//                } else {
-//                    System.out.println("Формат ответа некорректный, введи ответ заново цифрой от 1 до 5: ");
-//                    scanner.nextLine();
 
 }
+
+class Question {
+    public int getCorrectCount() {
+        return correctCount;
+    }
+
+    private int correctCount = 0;
+
+    public int getWrongCount() {
+        return wrongCount;
+    }
+
+    private int wrongCount = 0;
+
+    public void setCorrectCount(int correctCount) {
+        this.correctCount = correctCount;
+    }
+
+    public void setWrongCount(int wrongCount) {
+        this.wrongCount = wrongCount;
+    }
+
+    public Question(String[] questions) {
+        this.questions = questions;
+    }
+
+    private String[] questions;
+
+    public void setQuestion(String[] questions) {
+        this.questions = questions;
+    }
+
+    public String getQuestionByI(int i) {
+        return questions[i];
+    }
+
+}
+
+
+
+
+
 
 
 
