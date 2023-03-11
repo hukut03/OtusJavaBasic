@@ -1,99 +1,142 @@
 package OtusHomeWork;
 
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class OtusHomeWork4 {
     public static void main(String[] args) {
-        String[] questions = {"1st question", "2nd question", "3rd question"};
-        String[][] answerOptions = {
-                {"!!! 1 answer!!!", "2 answer", "3 answer", "4 ans  wer", "5 answer"},
-                {"1 answer", "!!! 2 answer!!!", "3 answer"},
-                {"1 answer", "2 answer", "!!! 3 answer!!!", "4 answer", "5 answer"}
-        };
-        Question q1 = new Question(questions);
-        Answer answer = new Answer(answerOptions);
-
-        q1.setQuestion(questions);
-
-        for (int i = 0; i < questions.length; i++) {
-            System.out.println(q1.getQuestionByI(i));
-            System.out.println(Arrays.deepToString(answer.getAnswerByI(i)));
-
-
-            System.out.println("Введите ответ цифрой от 1 до 5: ");
-            boolean check = true;
-            Scanner scanner = new Scanner(System.in);
-            while (check) {
-                if (scanner.hasNextInt()) {
-                    int str = scanner.nextInt();
-                    if (str == i) {
-                        q1.setCorrectCount(q1.getCorrectCount() + 1);
-                    } else {
-                        q1.setWrongCount(q1.getWrongCount() + 1);
-                    }
-                    check = false;
-                } else {
-                    System.out.println("Формат ответа некорректный, введи ответ заново цифрой от 1 до 5: ");
-                    scanner.nextLine();
-                }
-            }
-            System.out.println("Результат: правильно " + q1.getCorrectCount() + ", неправильно " + q1.getWrongCount());
-        }
-
+        Test test = new Test();
+        test.run();
     }
 }
 
-class Answer {
-    public Answer(String[][] answers) {
-        this.answers = answers;
+class Test {
+    private static int correct = 0;
+    private static int wrong = 0;
+    private final Question[] questions;
+
+    public Test() {
+        this.questions = generateQuestions();
     }
 
-    private final String[][] answers;
 
-    public String[] getAnswerByI(int i) {
-        return answers[i];
+    public void run() {
+        for (Question question : questions) {
+            question.printQuestion();
+            ask(question);
+        }
+        printResult();
     }
 
+    private static void ask(Question question) {
+        System.out.println("Введите вариант от 1 до " + question.getLengthOpt() + ": ");
+        boolean check = true;
+        Scanner scanner = new Scanner(System.in);
+        while (check) {
+            if (scanner.hasNextInt()) {
+                int str = scanner.nextInt();
+                if (question.isAnswerCorrect(str)) {
+                    correct++;
+                    check = false;
+                } else wrong++;
+                check = false;
+            } else {
+                System.out.println("Формат ответа некорректный, введи ответ заново цифрой от 1 до " + question.getLengthOpt() + ": ");
+                scanner.nextLine();
+            }
+
+        }
+    }
+
+    public static void printResult() {
+        System.out.println("Результат: правильно " + correct + ", неправильно " + wrong);
+    }
+
+    private static Question[] generateQuestions() {
+
+        Question q1 = new Question("1st question", new Option[]{
+                new Option(1, "1 answer", true),
+                new Option(2, "2 answer", false),
+                new Option(3, "3 answer", false),
+                new Option(4, "4 answer", false),
+                new Option(5, "5 answer", false)});
+
+
+        Question q2 = new Question("2st question", new Option[]{
+                new Option(1, "1 answer", false),
+                new Option(2, "2 answer", false),
+                new Option(3, "3 answer", false),
+                new Option(4, "4 answer", true)});
+
+
+        Question q3 = new Question("3st question", new Option[]{
+                new Option(1, "1 answer", false),
+                new Option(2, "2 answer", true),
+                new Option(3, "3 answer", false)});
+
+
+        Question q4 = new Question("4st question", new Option[]{
+                new Option(1, "1 answer", false),
+                new Option(2, "2 answer", true),
+                new Option(3, "3 answer", false),
+                new Option(4, "4 answer", false)});
+
+
+        return new Question[]{q1, q2, q3, q4};
+    }
+
+}
+
+class Option {
+    private final int NUMBER;
+    private final String TEXT;
+    public final boolean IS_CORRECT_OPTION;
+
+
+    public Option(int number, String text, boolean isCorrectOption) {
+        NUMBER = number;
+        TEXT = text;
+        IS_CORRECT_OPTION = isCorrectOption;
+    }
+
+    public void printOption() {
+        System.out.println(NUMBER + ". " + TEXT);
+    }
 }
 
 class Question {
-    public int getCorrectCount() {
-        return correctCount;
+
+    private final String TEXT;
+    private final Option[] OPTIONS;
+
+
+    public Question(String text, Option[] options) {
+        this.TEXT = text;
+        this.OPTIONS = options;
     }
 
-    private int correctCount = 0;
-
-    public int getWrongCount() {
-        return wrongCount;
+    public void printQuestion() {
+        System.out.println(TEXT + ": ");
+        for (Option option : OPTIONS) {
+            option.printOption();
+        }
     }
 
-    private int wrongCount = 0;
-
-    public void setCorrectCount(int correctCount) {
-        this.correctCount = correctCount;
+    public int getLengthOpt() {
+        return OPTIONS.length;
     }
 
-    public void setWrongCount(int wrongCount) {
-        this.wrongCount = wrongCount;
-    }
 
-    public Question(String[] questions) {
-        this.questions = questions;
-    }
-
-    private String[] questions;
-
-    public void setQuestion(String[] questions) {
-        this.questions = questions;
-    }
-
-    public String getQuestionByI(int i) {
-        return questions[i];
+    public boolean isAnswerCorrect(int answerNumber) {
+        if (answerNumber > 0 && answerNumber <= OPTIONS.length) {
+            return this.OPTIONS[answerNumber - 1].IS_CORRECT_OPTION;
+        }
+        return false;
     }
 
 }
+
+
 
 
 
