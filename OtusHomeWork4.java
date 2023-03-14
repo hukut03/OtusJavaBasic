@@ -9,7 +9,8 @@ public class OtusHomeWork4 {
         test.run();
     }
 }
-
+//Внес коррективы в названии переменных
+//
 class Test {
     private static int correct = 0;
     private static int wrong = 0;
