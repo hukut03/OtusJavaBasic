@@ -48,7 +48,7 @@ class Test {
         }
     }
 
-    public static void printResult() {
+    public void printResult() {
         System.out.println("Результат: правильно " + correct + ", неправильно " + wrong);
     }
 
@@ -88,48 +88,48 @@ class Test {
 }
 
 class Option {
-    private final int NUMBER;
-    private final String TEXT;
-    public final boolean IS_CORRECT_OPTION;
+    private final int number;
+    private final String text;
+    public final boolean isCorrectOption;
 
 
     public Option(int number, String text, boolean isCorrectOption) {
-        NUMBER = number;
-        TEXT = text;
-        IS_CORRECT_OPTION = isCorrectOption;
+        this.number = number;
+        this.text = text;
+        this.isCorrectOption = isCorrectOption;
     }
 
     public void printOption() {
-        System.out.println(NUMBER + ". " + TEXT);
+        System.out.println(number + ". " + text);
     }
 }
 
 class Question {
 
-    private final String TEXT;
-    private final Option[] OPTIONS;
+    private final String text;
+    private final Option[] options;
 
 
     public Question(String text, Option[] options) {
-        this.TEXT = text;
-        this.OPTIONS = options;
+        this.text = text;
+        this.options = options;
     }
 
     public void printQuestion() {
-        System.out.println(TEXT + ": ");
-        for (Option option : OPTIONS) {
+        System.out.println(text + ": ");
+        for (Option option : options) {
             option.printOption();
         }
     }
 
     public int getLengthOpt() {
-        return OPTIONS.length;
+        return options.length;
     }
 
 
     public boolean isAnswerCorrect(int answerNumber) {
-        if (answerNumber > 0 && answerNumber <= OPTIONS.length) {
-            return this.OPTIONS[answerNumber - 1].IS_CORRECT_OPTION;
+        if (answerNumber > 0 && answerNumber <= options.length) {
+            return this.options[answerNumber - 1].isCorrectOption;
         }
         return false;
     }
