@@ -16,11 +16,9 @@ public class OtusHomeWork5 {
         for (int i = 0; i < 1000; i++) {
             array[i] = random.nextInt(1000);
         }
-        System.out.println("After sorting array ");
-
         System.out.println(Arrays.toString(array));
 
-
+        System.out.println("After sorting array ");
         for (int step = 0; step < array.length; step++) {
             int index = min(array, step);
             int tmp = array[step];
@@ -32,24 +30,25 @@ public class OtusHomeWork5 {
         System.out.println("Sum prim " + (endTime - startTime) + " ms");
 
         System.out.println("++++++++++++++++++++++++++++++++++++");
-        /*СТАНДАРТНАЯ СОРТИРОВКА*/
+
+
+
+
+
         long startTime1 = System.currentTimeMillis();
-        int[] array1 = new int[1000];
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList());
         Random random1 = new Random(47);
         System.out.println(random1);
         for (int i = 0; i < 1000; i++) {
-            array1[i] = random1.nextInt(1000);
-
+            list.add(random.nextInt(1000));
         }
-            Arrays.sort(array1);
-            System.out.println(Arrays.toString(array1));
-            long endTime1 = System.currentTimeMillis();
-
-            System.out.println("Sum prim " + (endTime1 - startTime1) + " ms");
-
-        }
-
-
+        System.out.println(list);
+        System.out.println("After sorting List: ");
+        Collections.sort(list);
+        System.out.println(list);
+        long endTime1 = System.currentTimeMillis();
+        System.out.println("Sum prim " + (endTime1 - startTime1) + " ms");
+    }
 
     private static int min(int[] array, int start) {
         int minIndex = start;
